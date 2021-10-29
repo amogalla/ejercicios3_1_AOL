@@ -27,21 +27,19 @@ class Persona(var dni:String = "", var cuentas:Array<Cuenta?> = arrayOfNulls(3))
     }
 }
 
-fun imprimirMorosidad(descubierto:Boolean){
-    if(descubierto)
-        println("Alguna de sus cuentas tiene saldo negativo.")
-    else
-        println("Ninguna de sus cuentas tiene saldo negativo.")
+fun stringMorosidad(descubierto:Boolean):String{
+    return if(descubierto) "Alguna de sus cuentas tiene saldo negativo."
+        else "Ninguna de sus cuentas tiene saldo negativo."
 }
 
 
 fun main(){
-    var c1 = Cuenta("001", 0.0)
-    var c2 = Cuenta("002", 700.0)
-    var c3 = Cuenta("003", 850.33)
-    var c4 = Cuenta("004", 116.25)
+    val c1 = Cuenta("001", 0.0)
+    val c2 = Cuenta("002", 700.0)
+    val c3 = Cuenta("003", 850.33)
+    val c4 = Cuenta("004", 116.25)
 
-    var persona1 = Persona("001A")
+    val persona1 = Persona("001A")
     persona1.anyadirCuenta(c1)
     persona1.anyadirCuenta(c2)
 
@@ -52,13 +50,13 @@ fun main(){
 
     c1.recibirAbono(100.0)  //Recibe la nómina
     c2.realizarPago(750.0)   //Paga el alquiler
-    imprimirMorosidad(Cuenta.esMorosa(persona1))
+    println(stringMorosidad(Cuenta.esMorosa(persona1)))
 
     //Se ejecuta el traspaso de 100 euros de una cuenta a otra para evitar estar en números rojos
     c1.realizarPago(100.0)
     c2.recibirAbono(100.0)
     println("Tras el traspaso entre cuentas...")
-    imprimirMorosidad(Cuenta.esMorosa(persona1))
+    println(stringMorosidad(Cuenta.esMorosa(persona1)))
 
 
 }
